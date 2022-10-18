@@ -6,27 +6,39 @@ from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .models import Equipment,Court
+from .models import Equipment,Court,Timeslot
 
-from .serializers import EquipmentSerializer, CourtSerializer
+from .serializers import EquipmentSerializer, CourtSerializer, TimeslotSerializer
 # Create your views here.
 
+
+#Following is the view just for reference for the api caller
 @api_view(['GET'])
 def getRoutes(request):
     routes = [ 
         'GET /api',
+
         'GET /api/equipments',
-        'GET /api/equipments/<str:pk>/'
-        'PUT /api/equipments/<str:pk>/update'
+        'GET /api/equipments/<str:pk>/',
+        'PUT /api/equipments/<str:pk>/update',
+
+        'GET /api/courts',
+        'GET /api/courts/<str:pk>/',
+        'PUT /api/courts/<str:pk>/update',
+
+        'GET /api/timeslots',
+        'GET /api/timeslots/<str:pk>/',
+        'PUT /api/timeslots/<str:pk>/update',
     ]
     return Response( routes )
 
+
+#following views are to get the whole lists of certain type of data
 @api_view(['GET'])
 def getEquipments(request):
     equipments = Equipment.objects.all()
     serializer = EquipmentSerializer(equipments, many= True)
     return Response(serializer.data)
-
 
 @api_view(['GET'])
 def getCourts(request):
@@ -34,6 +46,15 @@ def getCourts(request):
     serializer = CourtSerializer(courts, many= True)
     return Response(serializer.data)
 
+
+@api_view(['GET'])
+def getTimeslots(request):
+    courts = Timeslot.objects.all()
+    serializer = TimeslotSerializer(courts, many= True)
+    return Response(serializer.data)
+
+
+#following views are to get a particular object of a certain data
 @api_view(['GET'])
 def getEquipment(request,pk):
     equipments = Equipment.objects.get(id=pk)
@@ -46,6 +67,14 @@ def getCourt(request,pk):
     serializer = CourtSerializer(courts, many= False)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def getTimeslot(request,pk):
+    timeslots = Timeslot.objects.get(id=pk)
+    serializer = TimeslotSerializer(timeslots, many= False)
+    return Response(serializer.data)
+
+
+#FOLLOWING VIEWS ARE FOR UPDATING AN OBJECT OF SOME CERTAIN TYPE
 @api_view(['PUT'])
 def updateEquipment(request,pk):
     
@@ -68,3 +97,16 @@ def updateCourt(request,pk):
     serializer = CourtSerializer(instance=court , data=data) #instance = equipment will load the original data, but then its data will be replaced by the request data
 
     return Response(serializer.data)
+
+
+@api_view(['PUT'])
+def updateTimeslot(request,pk):
+    
+    data = request.data #it will return the json object of the thingy that has been updated
+
+    timeslot = Timeslot.objects.get(id=pk)
+
+    serializer = TimeslotSerializer(instance=timeslot , data=data) #instance = equipment will load the original data, but then its data will be replaced by the request data
+
+    return Response(serializer.data)
+
