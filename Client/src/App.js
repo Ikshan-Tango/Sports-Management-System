@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
 return (
 <div style={{background:"#f3fffd"}}>
-   <Emergency />
+   <Profile />
 </div>
 );
 }

@@ -24,15 +24,15 @@ function Profile() {
           Hostel J
         </span>
       </div>
-      <div style={{background: "#f3fffd", height: "30vh", marginTop: 10}}>
+      <div style={{background: "#f3fffd", height: "40vh", marginTop: 10}}>
        <center><h4>Equipments issued</h4></center>
-       <ol>
-        <li>Badminton X 2</li>
-        <li>Balls X 1</li>
-       </ol>
+       <ul>
+        <h6>Badminton X 2</h6>
+        <h6>Balls X 1</h6>
+       </ul>
        <center><h4>Fine or Dues</h4></center>
        <ul>
-        <li>No pending dues or fine</li>
+        <h6>No pending dues or fine</h6>
         </ul>
       </div>
      </div>

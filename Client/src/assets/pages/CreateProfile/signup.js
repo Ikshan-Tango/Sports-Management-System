@@ -16,7 +16,7 @@ return(
       display: "flex",
       flexDirection: "column",
       color: "#17a2b8",
-      marginTop: 50,
+      marginTop: 40,
     }}
   >
     <center>

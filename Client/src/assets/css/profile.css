@@ -4,9 +4,6 @@ html {
   overflow-x: hidden !important;
 }
 
-* {
-  box-sizing: border-box;
-}
 
 .body {
   font-family: "Quicksand", sans-serif;
@@ -51,13 +48,11 @@ a, a:hover {
 
 .profile-card {
   width: 100%;
-  min-height: 400vh;
-  margin: 20%;
+  margin: 5%;
   box-shadow: 0px 8px 60px -10px rgba(13, 28, 39, 0.6);
   background: #fff;
   border-radius: 12px;
-  max-width: 40vw;
-
+  min-height: auto;
   position: relative;
 }
 .profile-card.active .profile-card__cnt {
