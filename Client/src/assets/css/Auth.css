@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Merienda+One&display=swap');
+
+h1{
+    font-family: 'Merienda One', cursive;
+}
+
+input{
+  border: 2px solid;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin: 0.25rem;
+  min-width: 125px;
+  padding: 0.5rem;
+  transition: background-color 0.5s ease-out;
+}
+
+form{
+    margin-top: 5%;
+}
