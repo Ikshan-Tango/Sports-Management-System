@@ -1,10 +1,13 @@
 import React from 'react'
+import Navigation from '../Navigation/Navigation';
 import image from "../../images/Profile.png"
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import "../../css/profile.css"
 
 function Profile() {
   return (
+    <>
+    <Navigation />
     <div className="body">
       <div className="wrapper">
       <div className="profile-card js-profile-card">
@@ -39,6 +42,7 @@ function Profile() {
     </div>
     </div>
     </div>
+    </>
   )
 }
 

@@ -1,0 +1,8 @@
+.links{
+    text-decoration: none;
+    color: white;
+    margin: 1%;
+}
+.links:hover{
+    color:aliceblue;
+}
