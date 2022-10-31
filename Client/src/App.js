@@ -6,6 +6,7 @@ import Dashboard from './assets/pages/Dashboard/dashboard';
 import Profile from './assets/pages/Profile/profile';
 import Emergency from './assets/pages/Emergency/emergency';
 import BookSlot from "./assets/pages/BookSlot/bookslot";
+import IssueEquipments from "./assets/pages/Equipment book/bookequipments";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -21,6 +22,7 @@ return (
             <Route path="/login" element={<Login />} exact />
             <Route path="/signup" element={<Signup />} exact />
             <Route path="/bookslot" element={<BookSlot />} exact />
+            <Route path="/issueequiments" element={<IssueEquipments />} exact />
           </Routes>
         </Router>
 </div>

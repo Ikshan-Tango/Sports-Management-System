@@ -15,9 +15,11 @@ function Navigation() {
         <Navbar.Collapse id="responsive-navbar-nav">
            <Nav>        
             <Link to="/bookslot" className="links">
-              BookSlot
+              Courts
             </Link>
-          
+            <Link to="/issueequiments" className="links">
+              Equipments
+            </Link>
             <Link to="/precautions" className="links">
               Emergency
             </Link>
