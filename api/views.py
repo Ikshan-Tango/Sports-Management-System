@@ -43,7 +43,7 @@ def getEquipments(request):
 @api_view(['GET'])
 def getCourts(request):
     courts = Court.objects.all()
-    serializer = CourtSerializer(courts, many= True)
+    serializer = CourtSerializer(courts, many= True)    
     return Response(serializer.data)
 
 
@@ -84,6 +84,9 @@ def updateEquipment(request,pk):
 
     serializer = EquipmentSerializer(instance=equipment , data=data) #instance = equipment will load the original data, but then its data will be replaced by the request data
 
+    if serializer.is_valid():
+        serializer.save()
+
     return Response(serializer.data)
 
 
@@ -95,6 +98,9 @@ def updateCourt(request,pk):
     court = Court.objects.get(id=pk)
 
     serializer = CourtSerializer(instance=court , data=data) #instance = equipment will load the original data, but then its data will be replaced by the request data
+
+    if serializer.is_valid():
+        serializer.save()
 
     return Response(serializer.data)
 
@@ -108,5 +114,28 @@ def updateTimeslot(request,pk):
 
     serializer = TimeslotSerializer(instance=timeslot , data=data) #instance = equipment will load the original data, but then its data will be replaced by the request data
 
+    if serializer.is_valid():
+        serializer.save()
+
     return Response(serializer.data)
+
+#For deletion
+
+@api_view(['DELETE'])
+def deleteEquipment(request,pk):
+    equipment = Equipment.objects.get(id=pk)
+    equipment.delete()
+    return Response('Equipment was deleted')
+
+@api_view(['DELETE'])
+def deleteCourt(request,pk):
+    court = Court.objects.get(id=pk)
+    court.delete()
+    return Response('Court was deleted')
+
+@api_view(['DELETE'])
+def deleteTimeslot(request,pk):
+    timeslot = Timeslot.objects.get(id=pk)
+    timeslot.delete()
+    return Response('Timeslot was deleted')
 
