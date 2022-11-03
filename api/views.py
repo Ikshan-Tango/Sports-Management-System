@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .models import Equipment,Court,Timeslot
+from .models import Equipment,Court,Timeslot, CustomUser
 
 from .serializers import EquipmentSerializer, CourtSerializer, TimeslotSerializer
 # Create your views here.
@@ -72,6 +72,22 @@ def getTimeslot(request,pk):
     timeslots = Timeslot.objects.get(id=pk)
     serializer = TimeslotSerializer(timeslots, many= False)
     return Response(serializer.data)
+
+@api_view(['GET'])
+def getAvailableTimeslots(request, pk):
+    date = request.GET['date']
+
+    court = Court.objects.get(id=pk)
+    timeslots = Timeslot.objects.filter(court=court)
+
+    occupied_timeslots = CustomUser.objects.filter(date=date, timeslots__court__id = pk)    
+
+    available_timeslots = []
+
+    for timeslot in timeslots:
+        print(timeslot)
+        # if timeslot not in occupied_timeslots:
+        #     available_timeslots.append(timeslot)
 
 
 #FOLLOWING VIEWS ARE FOR UPDATING AN OBJECT OF SOME CERTAIN TYPE
