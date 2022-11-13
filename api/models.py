@@ -3,13 +3,14 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
+
 class CustomUser(AbstractUser):
     roll_no = models.CharField(max_length=10, unique=True)
     fine = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
-    equipmentBooked = models.ForeignKey('Equipment', on_delete=models.SET_NULL, blank=True, null=True)
-    courtBooked = models.ForeignKey('Court', on_delete=models.SET_NULL, blank=True, null=True)
+    equipmentBooked = models.ForeignKey("Equipment", on_delete=models.SET_NULL, blank=True, null=True)
+    # courtBooked = models.ForeignKey("Court", on_delete=models.SET_NULL, blank=True, null=True)
     date = models.DateField(blank=True, null=True)
-    time = models.ForeignKey('TimeSlot', on_delete=models.SET_NULL, blank=True, null=True)
+    time = models.ForeignKey("TimeSlot", on_delete=models.SET_NULL, blank=True, null=True)
 
     USERNAME_FIELD = "roll_no"
     REQUIRED_FIELDS = ["username"]
@@ -29,6 +30,7 @@ class Court(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Timeslot(models.Model):
     """Contains time slots for courts"""
@@ -56,4 +58,4 @@ class Timeslot(models.Model):
     # open = models.BooleanField(default=True)
 
     def __str__(self):
-         return '{} {}'.format(self.court.name, self.time_slot)
+        return "{} {}".format(self.court.name, self.time_slot)
