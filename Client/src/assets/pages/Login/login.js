@@ -3,7 +3,13 @@ import "../../css/Auth.css";
 import { Button } from 'react-bootstrap'
 
 const Login = () => {
+    const [email,setEmail] = React.useState();
+    const [password,setPassword] = React.useState();
     const [loading,setLoading] = React.useState();
+    
+    const formSubmitHandler = async(e) => {
+
+    }
      if(loading){
      return(
        <span>Loading.....</span>
@@ -32,6 +38,7 @@ return(
               type="email"
               htmlFor="email"
               className="mb-3"
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
             <input
@@ -39,9 +46,10 @@ return(
               type="password"
               htmlFor="password"
               required
+              onChange={(e) => setPassword(e.target.value)}
               className="mb-3"
             />
-            <Button variant="info" style={{color: "white"}}>Login</Button>
+            <Button variant="info" style={{color: "white"}} onClick={formSubmitHandler}>Login</Button>
             <div className="text-center mt-4">Don't an account? Click here to Register</div>
           </div>
         </form>

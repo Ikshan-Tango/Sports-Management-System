@@ -1,9 +1,20 @@
 import React from "react";
 import "../../css/Auth.css";
 import { Button } from 'react-bootstrap'
+import { useHistory } from "react-router";
 
 const Signup = () => {
+    const [name, setName] = React.useState();
+    const [branch, setBranch] = React.useState();
+    const [hostel, setHostel] = React.useState();
+    const [year, setYear] = React.useState();
+    const [email, setEmail] = React.useState();
+    const [password, setPassword] = React.useState();
     const [loading,setLoading] = React.useState();
+
+    const formSubmitHandler = async(e) => {
+
+    }
      if(loading){
      return(
        <span>Loading.....</span>
@@ -32,24 +43,28 @@ return(
               type="text"
               htmlFor="text"
               className="mb-3"
+              onChange={(e) => setName(e.target.value)}
               required
             /><input
             placeholder="Branch"
             type="text"
             htmlFor="text"
             className="mb-3"
+            onChange={(e) => setBranch(e.target.value)}
             required
           /><input
           placeholder="Hostel"
           type="text"
           htmlFor="text"
           className="mb-3"
+          onChange={(e) => setHostel(e.target.value)}
           required
         /><input
         placeholder="Year"
         type="number"
         htmlFor="number"
         className="mb-3"
+        onChange={(e) => setYear(e.target.value)}
         required
       />
             <input
@@ -57,6 +72,7 @@ return(
               type="email"
               htmlFor="email"
               className="mb-3"
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
             <input
@@ -65,9 +81,9 @@ return(
               htmlFor="password"
               required
               className="mb-3"
+              onChange={(e) => setPassword(e.target.value)}
             />
-            <Button variant="info" style={{color: "white"}}>Login</Button>
-            <div className="text-center mt-4">Don't an account? Click here to Register</div>
+            <Button variant="info" style={{color: "white"}} onClick={formSubmitHandler}>Create account</Button>
           </div>
         </form>
   </div>
