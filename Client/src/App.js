@@ -1,12 +1,12 @@
 import { BrowserRouter as  Router, Route, Routes } from "react-router-dom";
-import Home from './assets/pages/Home/Home';
-import Signup from './assets/pages/CreateProfile/signup';
-import Login from './assets/pages/Login/login';
-import Dashboard from './assets/pages/Dashboard/dashboard';
-import Profile from './assets/pages/Profile/profile';
-import Emergency from './assets/pages/Emergency/emergency';
-import BookSlot from "./assets/pages/BookSlot/bookslot";
-import IssueEquipments from "./assets/pages/Equipment book/bookequipments";
+import Home from './Components/pages/Home/Home';
+import Signup from './Components/pages/CreateProfile/signup';
+import Login from './Components/pages/Login/login';
+import Dashboard from './Components/pages/Dashboard/dashboard';
+import Profile from './Components/pages/Profile/profile';
+import Emergency from './Components/pages/Emergency/emergency';
+import BookSlot from "./Components/pages/BookSlot/bookslot";
+import IssueEquipments from "./Components/pages/Equipment book/bookequipments";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
