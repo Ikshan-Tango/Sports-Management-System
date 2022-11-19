@@ -1,7 +1,7 @@
 import React from "react";
 import "../../css/Auth.css";
 import { Button } from 'react-bootstrap'
-
+import "../../css/App.css"
 const Login = () => {
     const [email,setEmail] = React.useState();
     const [password,setPassword] = React.useState();
@@ -37,7 +37,7 @@ return(
               placeholder="Email"
               type="email"
               htmlFor="email"
-              className="mb-3"
+              className="mb-3 field"
               onChange={(e) => setEmail(e.target.value)}
               required
             />
@@ -47,7 +47,7 @@ return(
               htmlFor="password"
               required
               onChange={(e) => setPassword(e.target.value)}
-              className="mb-3"
+              className="mb-3 field"
             />
             <Button variant="info" style={{color: "white"}} onClick={formSubmitHandler}>Login</Button>
             <div className="text-center mt-4">Don't an account? Click here to Register</div>

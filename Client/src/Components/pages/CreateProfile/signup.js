@@ -42,28 +42,28 @@ return(
               placeholder="Name"
               type="text"
               htmlFor="text"
-              className="mb-3"
+              className="mb-3 field"
               onChange={(e) => setName(e.target.value)}
               required
             /><input
             placeholder="Branch"
             type="text"
             htmlFor="text"
-            className="mb-3"
+            className="mb-3 field"
             onChange={(e) => setBranch(e.target.value)}
             required
           /><input
           placeholder="Hostel"
           type="text"
           htmlFor="text"
-          className="mb-3"
+          className="mb-3 field"
           onChange={(e) => setHostel(e.target.value)}
           required
         /><input
         placeholder="Year"
         type="number"
         htmlFor="number"
-        className="mb-3"
+        className="mb-3 field"
         onChange={(e) => setYear(e.target.value)}
         required
       />
@@ -71,7 +71,7 @@ return(
               placeholder="Email"
               type="email"
               htmlFor="email"
-              className="mb-3"
+              className="mb-3 field"
               onChange={(e) => setEmail(e.target.value)}
               required
             />
@@ -80,7 +80,7 @@ return(
               type="password"
               htmlFor="password"
               required
-              className="mb-3"
+              className="mb-3 field"
               onChange={(e) => setPassword(e.target.value)}
             />
             <Button variant="info" style={{color: "white"}} onClick={formSubmitHandler}>Create account</Button>
