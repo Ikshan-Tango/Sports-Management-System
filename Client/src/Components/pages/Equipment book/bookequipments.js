@@ -19,7 +19,7 @@ function IssueEquipments() {
             <input
               type="text"
               htmlFor="text"
-              className="mb-3"
+              className="mb-3 field"
               onChange={(e) => setEquipmentName(e.target.value)}
               required
             /></div>
@@ -30,7 +30,7 @@ function IssueEquipments() {
               htmlFor="number"
               onChange={(e) => setQuantity(e.target.value)}
               required
-              className="mb-3"
+              className="mb-3 field"
             /></div>
             <center><Button variant="info" style={{color: "white", width:100, marginBottom:30}} onClick={formSubmitHandler}>Issue</Button></center>
     </div>
