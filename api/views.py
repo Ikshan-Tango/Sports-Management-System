@@ -1,14 +1,17 @@
 from sys import api_version
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.contrib.auth import login, authenticate
+from django.shortcuts import redirect
 
-
+from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Equipment, Court, Timeslot, CustomUser
 
-from .serializers import EquipmentSerializer, CourtSerializer, TimeslotSerializer
+from .serializers import EquipmentSerializer, CourtSerializer, TimeslotSerializer, UserSerializer
 
 from datetime import datetime
 
@@ -31,6 +34,62 @@ def getRoutes(request):
         "PUT /api/timeslots/<str:pk>/update",
     ]
     return Response(routes)
+
+@api_view(["POST"])
+def user_register(request):
+    roll_no = request.data['data']["roll_no"]
+    password = request.data['data']["password"]
+
+    try:
+        user_exists = CustomUser.objects.get(roll_no=roll_no)
+        return Response("User already exists")
+        
+    except:
+        user = CustomUser.objects.create(
+            roll_no=roll_no,
+            password=password,
+        )
+
+        token = Token.objects.create(user=user)
+
+        return Response({"message": "User created successfully", "token": token.key})
+    
+
+    # return Response(UserSerializer(user, many=False))
+    # return Response("User created")
+
+@api_view(["POST"])
+def user_login(request):
+    print(request.user)
+
+
+    roll_no = request.data['data']["roll_no"]
+    password = request.data['data']["password"]
+
+    try:
+        user = CustomUser.objects.get(roll_no=roll_no, password=password)
+        # user = authenticate(roll_no=roll_no, password=password)
+
+        if user is not None:
+            token = Token.objects.get(user=user)
+
+            return Response({"message": "Login successful", "token": token.key})
+        # return redirect("/dashboard")
+        return Response("User Logged in successfully", status=200)
+        
+    except Exception as e:
+        print(e)
+        return Response("Invalid Email or Password", status=400)
+    
+@api_view(["GET"])
+# @permission_classes((IsAuthenticated, ))
+def check_login(request):
+    user = request.user
+    if user.is_authenticated:
+        return Response("User is logged in")
+    else:
+        return Response("User is not logged in")
+
 
 
 # following views are to get the whole lists of certain type of data

@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
     path("", views.getRoutes, name="routes"),
+    path("login/", views.user_login, name="login"),
+    path("register/", views.user_register, name="register"),
     path("equipments/", views.getEquipments, name="equipments"),
     path("courts/", views.getCourts, name="courts"),
     path("timeslots/", views.getTimeslots, name="timeslots"),
@@ -16,4 +18,6 @@ urlpatterns = [
     path("equipments/<str:pk>/", views.getEquipment, name="equipment"),
     path("courts/<str:pk>/", views.getCourt, name="court"),
     path("timeslots/<str:pk>/", views.getTimeslot, name="time-slot"),
+
+    path("check-login/", views.check_login, name="check-login"),
 ]
