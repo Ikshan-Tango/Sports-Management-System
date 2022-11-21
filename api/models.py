@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class CustomUser(AbstractUser):
+    username = None
     roll_no = models.CharField(max_length=10, unique=True)
     fine = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
     equipmentBooked = models.ForeignKey("Equipment", on_delete=models.SET_NULL, blank=True, null=True)
@@ -13,7 +14,7 @@ class CustomUser(AbstractUser):
     time = models.ForeignKey("TimeSlot", on_delete=models.SET_NULL, blank=True, null=True)
 
     USERNAME_FIELD = "roll_no"
-    REQUIRED_FIELDS = ["username"]
+    # REQUIRED_FIELDS = ["roll_no"]
 
 
 class Equipment(models.Model):
