@@ -3,6 +3,10 @@ from . import views
 
 urlpatterns = [
     path("", views.getRoutes, name="routes"),
+    path("users/<str:pk>/",views.get_user,name="user-data"),
+    path("tokens/",views.get_token,name="token-data"),
+    
+
     path("login/", views.user_login, name="login"),
     path("register/", views.user_register, name="register"),
     path("equipments/", views.getEquipments, name="equipments"),

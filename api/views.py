@@ -11,7 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from .models import Equipment, Court, Timeslot, CustomUser
 
-from .serializers import EquipmentSerializer, CourtSerializer, TimeslotSerializer, UserSerializer
+from .serializers import EquipmentSerializer, CourtSerializer, TimeslotSerializer, UserSerializer, TokenSerializer
 
 from datetime import datetime
 
@@ -34,6 +34,20 @@ def getRoutes(request):
         "PUT /api/timeslots/<str:pk>/update",
     ]
     return Response(routes)
+
+@api_view(["GET"])
+def get_user(request,pk):
+    user = CustomUser.objects.get(id=pk)
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+
+@api_view(["GET"])
+def get_token(request):
+    token = Token.objects.all()
+    serializer = TokenSerializer(token, many=True)
+    return Response(serializer.data)
+
+
 
 @api_view(["POST"])
 def user_register(request):
