@@ -9,25 +9,24 @@ import {useEffect} from "react"
 function Profile() {
   const [profileOptions, setProfileOptions] = React.useState([]);
   
-  useEffect(() => {
-    const fetchData = async () => {
-      // const userid = 
-      const token = localStorage.getItem("token");
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     // const userid = 
+  //     const token = localStorage.getItem("token");
 
-      console.log(token);
-      userid = token;//need to change this shit 
+  //     console.log(token);
+      
+  //     const res = await axios.get("http://127.0.0.1:8000/api/users/";
+  //     // console.log(res.data);
+  //     const profileData = res.data;
 
-      const res = await axios.get("http://127.0.0.1:8000/api/users/" +userid);
-      // console.log(res.data);
-      const profileData = res.data;
+  //     setProfileOptions(profileData.map((element, index) => {
+  //       return ({value: index, label: element.name})
+  //     }));
+  //   };
+  //   fetchData();
 
-      setProfileOptions(profileData.map((element, index) => {
-        return ({value: index, label: element.name})
-      }));
-    };
-    fetchData();
-
-  }, [])
+  // }, [])
   return (
     <>
     <Navigation />
