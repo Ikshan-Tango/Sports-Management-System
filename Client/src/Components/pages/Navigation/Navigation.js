@@ -20,7 +20,7 @@ function Navigation() {
             <Link to="/issueequiments" className="links">
               Equipments
             </Link>
-            <Link to="/precautions" className="links">
+            <Link to="/emergency" className="links">
               Emergency
             </Link>
             <Link to="/profile" className="links">

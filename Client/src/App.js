@@ -8,6 +8,7 @@ import Emergency from './Components/pages/Emergency/emergency';
 import BookSlot from "./Components/pages/BookSlot/bookslot";
 import IssueEquipments from "./Components/pages/Equipment book/bookequipments";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Precautions from "./Components/pages/Emergency/precautions";
 
 
 function App() {
@@ -19,7 +20,8 @@ return (
             <Router>
                 <Routes>
                   <Route path="/" element={<Home />} exact />
-                  <Route path="/precautions" element={<Emergency />} exact />
+                  <Route path="/precautions" element={<Precautions />} exact />
+                  <Route path="/emergency" element={<Emergency />} exact />
                   <Route path="/profile" element={<Profile />} exact />
                   <Route path="/dashboard" element={<Dashboard />} exact />
                   <Route path="/login" element={<Login />} exact />
