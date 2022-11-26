@@ -101,7 +101,6 @@ function BookSlot() {
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
             />
-
             <Select options={slots} value={selectedDate} onChange={setSelectedDate} />
           </div>
           <center>
