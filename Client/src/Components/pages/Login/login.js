@@ -94,7 +94,7 @@ return(
               className="mb-3 field"
             />
             <Button variant="info" style={{color: "white"}} onClick={formSubmitHandler}>Login</Button>
-            <div className="text-center mt-4">Don't an account? Click here to Register</div>
+            {/* <div className="text-center mt-4">Don't an account? Click here to Register</div> */}
           </div>
         </form>
   </div>
