@@ -1,26 +1,40 @@
 import React from "react";
 import "../../css/Auth.css";
 import { Button } from "react-bootstrap";
-import { useHistory } from "react-router";
 import axios from "axios";
-
+import { useNavigate } from "react-router";
 const Signup = () => {
-  // const [name, setName] = React.useState();
-  // const [branch, setBranch] = React.useState();
-  // const [hostel, setHostel] = React.useState();
-  // const [year, setYear] = React.useState();
-  // const [email, setEmail] = React.useState();
-  // const [password, setPassword] = React.useState();
+  const navigate = useNavigate();
   const [loading, setLoading] = React.useState();
-
-  const [rollNo, setRollNo] = React.useState();
+  const [rollNo, setRollNo] = React.useState(null);
   const [password, setPassword] = React.useState();
+  const rollnoInputHandler = event => {
+    setRollNo(event.target.value);
+    if(event.target.value.length!=10){
+      setRollNo(null);
+    }
+  }
 
+  const passwordInputHandler = event => {
+    setPassword(event.target.value);
+    if(event.target.value.length<8){
+      setPassword('');
+    }
+  }
 
   const formSubmitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+    if(rollNo==null){
+      alert('Please enter valid Rollno (10 digits long)');
+      setLoading(false);
+      return;
+    }
+    if(password.trim()==''){
+      alert('Please enter valid Password atleast 8 characters long');
+      setLoading(false);
+      return;
+    }
     const data = {
       roll_no: rollNo,
       password: password,
@@ -28,11 +42,16 @@ const Signup = () => {
 
     const res = await axios.post("http://localhost:8000/api/register/", {data})
     setLoading(false);
+    if(res.status==200){
+      alert("User created successfully, Now you can Login!");
+      navigate('/login');
+    }
+    
     console.log(res)
 
   };
   if (loading) {
-    return <span>Loading.....</span>;
+    return <span></span>;
   } else {
     return (
       <div
@@ -49,61 +68,21 @@ const Signup = () => {
 
         <form style={{ color: "white", alignSelf: "center" }}>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            {/* <input
-              placeholder="Name"
-              type="text"
-              htmlFor="text"
-              className="mb-3 field"
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-            <input
-              placeholder="Branch"
-              type="text"
-              htmlFor="text"
-              className="mb-3 field"
-              onChange={(e) => setBranch(e.target.value)}
-              required
-            />
-            <input
-              placeholder="Hostel"
-              type="text"
-              htmlFor="text"
-              className="mb-3 field"
-              onChange={(e) => setHostel(e.target.value)}
-              required
-            />
-            <input
-              placeholder="Year"
-              type="number"
-              htmlFor="number"
-              className="mb-3 field"
-              onChange={(e) => setYear(e.target.value)}
-              required
-            />
-            <input
-              placeholder="Email"
-              type="email"
-              htmlFor="email"
-              className="mb-3 field"
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            /> */}
             <input
               placeholder="Roll No"
               type="text"
               htmlFor="text"
               className="mb-3 field"
-              onChange={(e) => setRollNo(e.target.value)}
+              onChange={rollnoInputHandler}
               required
             />
             <input
               placeholder="Password"
               type="password"
               htmlFor="password"
-              required
               className="mb-3 field"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={passwordInputHandler}
+              required
             />
             <Button
               variant="info"

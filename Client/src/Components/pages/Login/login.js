@@ -6,22 +6,7 @@ import axios from "axios"
 import { useNavigate } from "react-router";
 
 const Login = () => {
-  // function getCookie(name) {
-  //   var cookieValue = null;
-  //   if (document.cookie && document.cookie !== '') {
-  //       var cookies = document.cookie.split(';');
-  //       for (var i = 0; i < cookies.length; i++) {
-  //           var cookie = jQuery.trim(cookies[i]);
-  //           if (cookie.substring(0, name.length + 1) === (name + '=')) {
-  //               cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-  //               break;
-  //           }
-  //       }
-  //   }
-  //   return cookieValue;
-  // }
-
-  
+ 
     const navigate = useNavigate();
 
     const [rollNo,setRollNo] = React.useState();
@@ -30,25 +15,22 @@ const Login = () => {
     
     const formSubmitHandler = async(e) => {
       e.preventDefault();
-      // setLoading(true);
-
-      // const csrftoken = getCookie('csrftoken');
-
       const data = {
         roll_no: rollNo,
         password: password,
       }
-
+      // if(data.roll_no.length!=10){
+      //   alert("Please enter correct rollno")
+      //   return;
+      // }
       try{
-        const res = await axios.post("http://localhost:8000/api/login/", {data})
-
-        
+        const res = await axios.post("http://localhost:8000/api/login/", {data})        
         if(res.status == 200){
           localStorage.setItem("token",res.data.token)
           navigate("/dashboard")
         }
       }catch (error) {
-        alert("Invalid Roll No or Password")
+        alert("Invalid Rollno or Password")
       } 
       
       // setLoading(false);
@@ -94,7 +76,7 @@ return(
               className="mb-3 field"
             />
             <Button variant="info" style={{color: "white"}} onClick={formSubmitHandler}>Login</Button>
-            <div className="text-center mt-4">Don't an account? Click here to Register</div>
+            {/* <div className="text-center mt-4">Don't an account? Click here to Register</div> */}
           </div>
         </form>
   </div>

@@ -56,7 +56,7 @@ def user_register(request):
 
     try:
         user_exists = CustomUser.objects.get(roll_no=roll_no)
-        return Response("User already exists")
+        return Response({"message":"User already exists"}, status=200)
         
     except:
         user = CustomUser.objects.create(
@@ -66,7 +66,7 @@ def user_register(request):
 
         token = Token.objects.create(user=user)
 
-        return Response({"message": "User created successfully", "token": token.key})
+        return Response({"message": "User created successfully", "token": token.key}, status=200)
     
 
     # return Response(UserSerializer(user, many=False))
