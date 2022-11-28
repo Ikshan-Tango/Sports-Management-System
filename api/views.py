@@ -1,4 +1,3 @@
-from sys import api_version
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
@@ -251,3 +250,40 @@ def deleteTimeslot(request, pk):
     timeslot = Timeslot.objects.get(id=pk)
     timeslot.delete()
     return Response("Timeslot was deleted")
+
+@api_view(["POST"])
+@permission_classes((IsAuthenticated, ))
+def book_slot(request):
+    user = request.user
+
+    date = request.data["date"]
+    new_date = datetime.strptime(date, "%Y-%m-%d")
+    timeslot_id = request.data["timeslot_id"]
+
+    print(new_date, timeslot_id)
+
+
+    timeslot = Timeslot.objects.get(id=timeslot_id)
+
+    if CustomUser.objects.filter(date=new_date, time=timeslot).exists():
+        return Response("Slot already booked", status=400)
+
+    user.date = new_date
+    user.time = timeslot
+    user.save()
+
+    return Response("Slot Booked")
+
+@api_view(["GET"])
+@permission_classes((IsAuthenticated, ))
+def profile(request):
+    user = request.user
+    user_serializer = UserSerializer(user, many=False)
+
+    time = user.time
+    timeslot = time.time_slot
+    court = time.court.name
+    date = user.date
+
+
+    return Response({"user": user_serializer.data, "court": court, "date": date, "timeslot": timeslot})

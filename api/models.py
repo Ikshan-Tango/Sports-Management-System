@@ -13,7 +13,7 @@ class CustomUser(AbstractUser):
     date = models.DateField(blank=True, null=True)
     time = models.ForeignKey("TimeSlot", on_delete=models.SET_NULL, blank=True, null=True)
     USERNAME_FIELD = "roll_no"
-    # REQUIRED_FIELDS = ["roll_no"]
+    # REQUIRED_FIELDS = ["username"]
 
 
 class Equipment(models.Model):
