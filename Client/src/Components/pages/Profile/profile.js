@@ -4,29 +4,42 @@ import image from "../../images/Profile.png"
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import "../../css/profile.css"
 import axios from "axios"
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
 
 function Profile() {
-  const [profileOptions, setProfileOptions] = React.useState([]);
+  const [rollNo, setRollNo] = useState("");
+  const [fine, setFine] = useState();
+  const [court, setCourt] = useState("");
+  const [timeSlot, setTimeSlot] = useState("");
+  const [date, setDate] = useState("");
   
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     // const userid = 
-  //     const token = localStorage.getItem("token");
 
-  //     console.log(token);
-      
-  //     const res = await axios.get("http://127.0.0.1:8000/api/users/";
-  //     // console.log(res.data);
-  //     const profileData = res.data;
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem("token");
 
-  //     setProfileOptions(profileData.map((element, index) => {
-  //       return ({value: index, label: element.name})
-  //     }));
-  //   };
-  //   fetchData();
+      const config = {
+        headers: {
+            "Authorization": `Token ${token}`,
+        }
+      }
 
-  // }, [])
+      const res = await axios.get("http://localhost:8000/api/profile", config)
+      console.log(res)
+
+
+      setRollNo(res.data.user.roll_no);
+      setFine(res.data.user.fine);
+      setCourt(res.data.court);
+      setTimeSlot(res.data.timeslot);
+      setDate(res.data.date);
+
+    };
+    fetchData();
+
+  }, [])
+
+
   return (
     <>
     <Navigation />
@@ -38,9 +51,9 @@ function Profile() {
       </div>
 
     <div className="profile-card__cnt js-profile-cnt">
-      <center><div className="profile-card__name">Aarushi Abrol</div></center>
-      <center><div className="profile-card__txt">3rd Year, Computer Engineering</div></center>
-      <div className="profile-card-loc">
+      <center><div className="profile-card__name">{rollNo}</div></center>
+      {/* <center><div className="profile-card__txt">3rd Year, Computer Engineering</div></center> */}
+      {/* <div className="profile-card-loc">
         <span className="profile-card-loc__icon">
         <LocationOnIcon />
         </span>
@@ -48,16 +61,16 @@ function Profile() {
         <span className="profile-card-loc__txt">
           Hostel J
         </span>
-      </div>
+      </div> */}
       <div style={{background: "#f3fffd", height: "40vh", marginTop: 10}}>
-       <center><h4>Equipments issued</h4></center>
+       <center><h4>Court Booked</h4></center>
        <ul>
-        <h6>Badminton X 2</h6>
-        <h6>Balls X 1</h6>
+        <h6>{court}</h6>
+        <h6>{date} @ {timeSlot}</h6>
        </ul>
        <center><h4>Fine or Dues</h4></center>
        <ul>
-        <h6>No pending dues or fine</h6>
+        <h6>{fine}</h6>
         </ul>
       </div>
      </div>

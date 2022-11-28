@@ -6,3 +6,11 @@
 .links:hover{
     color:aliceblue;
 }
+
+
+.logout {
+    background: none;
+    border: none;
+    white-space: nowrap;
+  }
+  

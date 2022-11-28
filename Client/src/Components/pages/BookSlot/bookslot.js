@@ -10,6 +10,7 @@ function BookSlot() {
   const [courtOptions, setCourtOptions] = React.useState([]);
   const [selectedCourt, setSelectedCourt] = React.useState({value: 0, label: "Select Court"});
   const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [selectedSlot, setSelectedSlot] = React.useState({value: 0, label: "Select Slot"});
 
   const [slots, setSlots] = React.useState([]);
   useEffect(() => {
@@ -19,7 +20,7 @@ function BookSlot() {
       const courtsData = res.data;
 
       setCourtOptions(courtsData.map((element, index) => {
-        return ({value: index, label: element.name})
+        return ({value: element.id, label: element.name})
       }));
     };
     fetchData();
@@ -32,16 +33,49 @@ function BookSlot() {
   }, [courtOptions])
 
   useEffect(() => {
-    updateSlots();
+    console.log(selectedCourt, selectedDate);
+
+    if(selectedCourt.value != 0 && selectedDate != undefined){
+      updateSlots();
+    }
   }, [selectedCourt, selectedDate])
 
-  const formSubmitHandler = async (e) => {};
+  const formSubmitHandler = async (e) => {
+    const token = localStorage.getItem("token");
+
+    const config = {
+      headers: {
+          "Authorization": `Token ${token}`,
+      }
+    }
+
+    const data = {
+      "date": selectedDate,
+      "timeslot_id": selectedSlot.value,
+    }
+
+    const res = await axios.post("http://localhost:8000/api/bookslot", data, config)
+    console.log(res)
+
+    if(res.status == 200){
+      alert("Slot Booked Successfully");
+
+      setSelectedDate("Select Date");
+      setSelectedCourt({value: 0, label: "Select Court"});
+      setSelectedSlot({value: 0, label: "Select Slot"});
+    }
+    
+  };
 
 
   
   const updateSlots = async () => {
-    console.log("selected court", selectedCourt);
-    const courtId = selectedCourt.value + 1;
+    // console.log("selected court", selectedCourt);
+    if(selectedDate == "Select Date") {
+      return
+    }
+
+    const courtId = selectedCourt.value;
     const url = "http://localhost:8000/api/courts/" + courtId + "/availableTimeslots/?date=" + selectedDate;
 
     const token = localStorage.getItem("token");
@@ -52,12 +86,14 @@ function BookSlot() {
       }
     }
 
-    const res = await axios.get(url, {} , config)
+    const res = await axios.get(url, config)
+    console.log(res.data)
+
 
     if(res.status == 200) {
       const slotsData = res.data
       setSlots(slotsData.map((element, index) => {
-        return ({value: index, label: element.time_slot})
+        return ({value: element.id, label: element.time_slot})
       }))
     }
 
@@ -101,7 +137,7 @@ function BookSlot() {
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
             />
-            <Select options={slots} value={selectedDate} onChange={setSelectedDate} />
+            <Select options={slots} value={selectedSlot} onChange={setSelectedSlot} />
           </div>
           <center>
             <Button

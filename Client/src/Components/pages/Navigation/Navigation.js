@@ -3,7 +3,21 @@ import { Nav, Navbar, Container } from "react-bootstrap";
 import {Link} from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../css/Navigation.css"
+import {useNavigate} from "react-router-dom"
+
 function Navigation() {
+
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  }
+
+  const test = () => {
+    navigate("/login");
+  }
+
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="primary">
@@ -26,9 +40,11 @@ function Navigation() {
             <Link to="/profile" className="links">
               Profile
             </Link>
-            <Link to="/" className="links">
+            {/* <Link onClick={logout} className="links">
               Logout
-            </Link>
+            </Link> */}
+
+            <button onClick={logout} className="logout links">Logout</button>
           </Nav>
           
         </Navbar.Collapse>
