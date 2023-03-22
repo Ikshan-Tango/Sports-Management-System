@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+from .managers import CustomUserManager
 
 
 class CustomUser(AbstractUser):
@@ -14,6 +15,11 @@ class CustomUser(AbstractUser):
     time = models.ForeignKey("TimeSlot", on_delete=models.SET_NULL, blank=True, null=True)
     USERNAME_FIELD = "roll_no"
     # REQUIRED_FIELDS = ["username"]
+
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.roll_no
 
 
 class Equipment(models.Model):
