@@ -73,6 +73,7 @@ def user_register(request):
 
 @api_view(["POST"])
 def user_login(request):
+    #check if user is present with the same roll and pwd, then assign the token else 
     print(request.user)
 
 
@@ -281,6 +282,10 @@ def profile(request):
     user_serializer = UserSerializer(user, many=False)
 
     time = user.time
+
+    if time is None:
+        return Response("No courts booked as of now!")
+    
     timeslot = time.time_slot
     court = time.court.name
     date = user.date
